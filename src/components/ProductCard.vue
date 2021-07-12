@@ -5,7 +5,13 @@
       :alt="product.productName"
       eager
       max-width="40vw"
-    />
+    >
+      <template v-slot:placeholder>
+        <v-row class="fill-height ma-0" align="center" justify="center">
+          <v-progress-circular indeterminate color="grey"></v-progress-circular>
+        </v-row>
+      </template>
+    </v-img>
 
     <v-card-title
       >{{ product.productName }}
@@ -53,6 +59,5 @@ export default class ProductCard extends Vue {
 <style scoped>
 .product-card {
   width: 40vw;
-  /* max-height: 30vh; */
 }
 </style>

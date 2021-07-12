@@ -16,8 +16,8 @@ export class CartStore extends VuexModule implements CartState {
     return this.items;
   }
 
-  get totalCartItem(): number {
-    return this.items.reduce((acc, cart) => acc + cart.quantity, 0);
+  get totalCartItems(): number {
+    return this.items.length;
   }
 
   get totalAmount(): number {
@@ -31,10 +31,10 @@ export class CartStore extends VuexModule implements CartState {
   addItem(product: IProductCartInfo): void {
     const index = this.items.findIndex((item) => item.id === product.id);
     if (index >= 0) {
-      this.items[index].quantity += product.quantity;
+      this.items[index].quantity++;
       this.items[index].totalPrice = this.items[index].quantity * product.price;
     } else {
-      this.items.push(product);
+      this.items.push({...product});
     }
   }
 
@@ -45,7 +45,7 @@ export class CartStore extends VuexModule implements CartState {
     if (index >= 0) {
       this.items[index].quantity--;
       if (this.items[index].quantity <= 0) {
-        this.items = this.items.splice(index, 0);
+        this.items = this.items.filter(item => item.id !== product.id);
       } else {
         this.items[index].totalPrice =
           this.items[index].quantity * product.price;
@@ -74,7 +74,8 @@ export class CartStore extends VuexModule implements CartState {
   }
 
   @Action
-  checkout(): void {
-    this.clearCart();
+  async checkout(): Promise<void> {
+    console.log("Checkout")
+    await this.clearCart();
   }
 }

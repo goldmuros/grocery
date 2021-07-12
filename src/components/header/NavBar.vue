@@ -6,14 +6,10 @@
       </template>
       <template v-else>
         <v-spacer></v-spacer>
-        <v-container>
-          <v-row>
-            <v-col cols="12" class="d-flex .float-end">
-              <FavoriteButton @drawer="openDrawer('favorite')" />
-              <CartButton @drawer="openDrawer('cart')" />
-            </v-col>
-          </v-row>
-        </v-container>
+        <div class="d-flex justify-end">
+          <FavoriteButton @drawer="openDrawer('favorite')" />
+          <CartButton @drawer="openDrawer('cart')" />
+        </div>
       </template>
     </v-app-bar>
     <v-navigation-drawer
@@ -33,8 +29,9 @@
 import { Component, Vue } from "vue-property-decorator";
 import CartList from "@/views/CartList.vue";
 import FavoriteList from "@/views/FavoriteList.vue";
-import LayoutMobile from "@/components/LayoutMobile.vue";
-import CartButton from "@/components/CartButton.vue";
+import LayoutMobile from "@/components/header/LayoutMobile.vue";
+import CartButton from "@/components/header/CartButton.vue";
+import FavoriteButton from "@/components/header/FavoriteButton.vue";
 
 @Component({
   components: {
@@ -42,6 +39,7 @@ import CartButton from "@/components/CartButton.vue";
     LayoutMobile,
     CartButton,
     FavoriteList,
+    FavoriteButton,
   },
 })
 export default class NavBar extends Vue {

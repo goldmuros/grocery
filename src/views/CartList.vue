@@ -9,7 +9,7 @@
           </v-list-item-content>
 
           <v-list-item-content>
-            <v-list-item-title v-html="item.productName"></v-list-item-title>
+            <v-list-item-subtitle>{{ item.productName }}</v-list-item-subtitle>
             <v-list-item-action class="row-buttons">
               <v-row>
                 <v-col class="col" cols="7">
@@ -27,14 +27,11 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <FooterCart class="footer" @checkout="checkout" />
     </v-card-text>
     <v-card-text v-else>
       <p class="headline font-weight-bold">No items</p>
     </v-card-text>
-    <v-footer>
-      <v-btn block text> Checkout </v-btn>
-      <p>${{ totalAmount }}</p>
-    </v-footer>
   </v-card>
 </template>
 
@@ -42,12 +39,12 @@
 import { Component, Vue } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
 import { CartStore } from "@/store/Cart";
-import ProductCart from "@/components/ProductCart.vue";
 import { IProductCartInfo } from "@/types/Product.types";
+import FooterCart from "@/components/cart/FooterCart.vue";
 
 @Component({
   components: {
-    ProductCart,
+    FooterCart,
   },
 })
 export default class CartList extends Vue {
@@ -59,16 +56,16 @@ export default class CartList extends Vue {
     return this.cartStore.fetchCart;
   }
 
-  get totalAmount(): number {
-    return this.cartStore.totalAmount;
-  }
-
   public reduce(item: IProductCartInfo): void {
     this.cartStore.reduce(item);
   }
 
   public add(item: IProductCartInfo): void {
     this.cartStore.increase(item);
+  }
+
+  public async checkout(): Promise<void> {
+    this.cartStore.checkout();
   }
 }
 </script>
@@ -87,7 +84,14 @@ export default class CartList extends Vue {
 .row-buttons {
   padding-left: 0;
 }
+
 .col {
   padding-left: 0;
+}
+
+.footer {
+  position: absolute;
+  bottom: 10px;
+  left: 30%;
 }
 </style>

@@ -19,7 +19,7 @@ export class ProductStore extends VuexModule implements ProductState {
   }
 
   get fetchFavorite(): IProductInfo[] {
-    return this.items.filter(item => item.favorite === "1");
+    return this.items.filter((item) => item.favorite === "1");
   }
 
   @Mutation

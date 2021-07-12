@@ -2,12 +2,18 @@
   <v-container fluid>
     <v-row>
       <v-col xs="4" sm="4">
-        <v-btn large class="ml-auto" icon dark @click.stop="back">
+        <v-btn
+          large
+          icon
+          dark
+          @click.stop="back"
+          v-if="currentRouteName !== 'Product List'"
+        >
           <v-icon dark>mdi-arrow-left</v-icon>
         </v-btn>
       </v-col>
-      <v-col xs="6" sm="6"> {{ currentRouteName }} </v-col>
-      <v-col xs="4" sm="4" class="">
+      <v-col xs="6" sm="6" class="pt-5 title"> {{ currentRouteName }} </v-col>
+      <v-col xs="4" sm="4">
         <FavoriteButton />
         <CartButton />
       </v-col>
@@ -17,8 +23,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import CartButton from "@/components/CartButton.vue";
-import FavoriteButton from "@/components/FavoriteButton.vue";
+import CartButton from "@/components/header/CartButton.vue";
+import FavoriteButton from "@/components/header/FavoriteButton.vue";
 
 @Component({
   components: {
