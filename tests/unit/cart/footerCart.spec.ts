@@ -3,13 +3,13 @@ import Vuex, { Store } from "vuex";
 import { getModule } from "vuex-module-decorators";
 import { CartStore } from "@/store/Cart";
 import Vuetify from "vuetify";
-import ProductCard from "@/components/ProductCard.vue";
+import FooterCart from "@/components/cart/FooterCart.vue";
 
 const localVue = createLocalVue();
 localVue.use(Vuetify);
 localVue.use(Vuex);
 
-describe("ProductCard component", () => {
+describe("FooterCart component", () => {
   let store: Store<unknown>;
 
   beforeEach(() => {
@@ -22,21 +22,8 @@ describe("ProductCard component", () => {
   });
 
   it("Exist component", async () => {
-    const propsData = {
-      product: {
-        id: "1",
-        image_url: "",
-        stock: 0,
-        productName: "",
-        price: 0,
-        productDescription: "",
-        favorite: "0",
-      },
-    };
-
-    const cmp = shallowMount(ProductCard, {
+    const cmp = shallowMount(FooterCart, {
       store,
-      propsData,
       localVue,
     });
 
